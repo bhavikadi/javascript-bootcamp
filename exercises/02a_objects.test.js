@@ -6,9 +6,9 @@ test('property access', () => {
     age: 35
   };
 
-  expect(/* 🤔 */).toBe('Julian');
-  expect(/* 🤔 */).toBe('Brown');
-  expect(/* 🤔 */).toBe(35);
+  expect(obj.name).toBe('Julian');
+  expect(obj.lastname).toBe('Brown');
+  expect(obj.age).toBe(35);
 });
 
 test('key access', () => {
@@ -19,9 +19,9 @@ test('key access', () => {
     age: 35
   };
 
-  expect(/* 🤔 */).toBe('Julian');
-  expect(/* 🤔 */).toBe('Brown');
-  expect(/* 🤔 */).toBe(35);
+  expect(obj["name"]).toBe('Julian');
+  expect(obj["lastname"]).toBe('Brown');
+  expect(obj["age"]).toBe(35);
 });
 
 test('computed property names', () => {
@@ -37,11 +37,11 @@ test('computed property names', () => {
     age: 35
   };
 
-  expect(/* 🤔 */).toBe('Kelly');
-  expect(/* 🤔 */).toBe('White');
-  expect(/* 🤔 */).toBe('Pink');
-  expect(/* 🤔 */).toBe('Venn');
-  expect(/* 🤔 */).toBe(35);
+  expect(vip[real + "name"]).toBe('Kelly');
+  expect(vip[real + "lastname"]).toBe('White');
+  expect(vip[fake + "name"]).toBe('Pink');
+  expect(vip[fake + "lastname"]).toBe('Venn');
+  expect(vip["age"]).toBe(35);
 });
 
 test('define object properties', () => {
@@ -51,10 +51,23 @@ test('define object properties', () => {
     lastname: 'White',
     age: 35
   };
+  var myObj = {}
 
-  expect(/* 🤔 */).toBe('Kelly');
-  expect(/* 🤔 */).toBe('White');
-  expect(/* 🤔 */).toBe(35);
+  Object.defineProperty(myObj, "name", {
+    value: vip.name
+  });
+
+  Object.defineProperty(myObj, "lastname", {
+    value: vip.lastname
+  });
+
+  Object.defineProperty(myObj, "age", {
+    value: vip.age
+  });
+
+  expect(myObj.name).toBe('Kelly');
+  expect(myObj.lastname).toBe('White');
+  expect(myObj.age).toBe(35);
 });
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
@@ -66,7 +79,9 @@ it('should return an array of keys from an object', () => {
     age: 35
   };
 
-  expect(/* 🤔 */).toEqual(['name', 'lastname', 'age']);
+  var keys = Object.keys(vip);
+
+  expect(keys).toEqual(['name', 'lastname', 'age']);
 });
 
 it('should return an array of values from an object', () => {
@@ -75,6 +90,6 @@ it('should return an array of values from an object', () => {
     lastname: 'White',
     age: 35
   };
-
-  expect(/* 🤔 */).toEqual(['Kelly', 'White', 35]);
+  var values = Object.values(vip)
+  expect(values).toEqual(['Kelly', 'White', 35]);
 });
